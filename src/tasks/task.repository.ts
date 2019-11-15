@@ -4,9 +4,24 @@ import { Task } from './task.entity'
 import { CreateTaskDto } from './dto/create-task.dto'
 import { TaskStatus } from './task-status.enum'
 import { UpdateTaskDto } from './dto/update-task.dto'
+import { FilterTaskDto } from './dto/filter-task.dto'
 
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task> {
+  async getTasks(filterTaskDto: FilterTaskDto): Promise<Task[]> {
+    const { status, search } = filterTaskDto
+    const query = this.createQueryBuilder('task')
+
+    if (status) query.andWhere('task.status = :status', { status })
+    if (search)
+      query.andWhere(
+        'task.title LIKE :search OR task.description LIKE :search ',
+        { search: `%${search}%` },
+      )
+    const results = await query.getMany()
+    return results
+  }
+
   async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     const newTask = new Task()
     newTask.title = createTaskDto.title

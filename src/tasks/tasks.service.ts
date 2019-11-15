@@ -13,6 +13,11 @@ export class TasksService {
     @InjectRepository(TaskRepository) private taskRepository: TaskRepository,
   ) {}
 
+  async getTasks(filterTaskDto: FilterTaskDto): Promise<Task[]> {
+    const result = await this.taskRepository.getTasks(filterTaskDto)
+    return result
+  }
+
   async getTaskById(id: number): Promise<Task> {
     const found = await this.taskRepository.findOne(id)
     if (!found) throw new NotFoundException(`Task id ${id} not found`)
