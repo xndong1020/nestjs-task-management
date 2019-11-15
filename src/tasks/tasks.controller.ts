@@ -37,11 +37,11 @@ export class TasksController {
     return this.tasksService.getTaskById(id)
   }
 
-  // @Post()
-  // @UsePipes(ValidationPipe)
-  // createTask(@Body() createTaskDto: CreateTaskDto): Task {
-  //   return this.tasksService.createTask(createTaskDto)
-  // }
+  @Post()
+  @UsePipes(ValidationPipe)
+  createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksService.createTask(createTaskDto)
+  }
 
   // @Put('/:id')
   // updateTask(
@@ -59,8 +59,8 @@ export class TasksController {
   //   return this.tasksService.patchTask(id, patchTaskDto)
   // }
 
-  // @Delete('/:id')
-  // deleteTask(@Param('id') id: string): void {
-  //   return this.tasksService.deleteTask(id)
-  // }
+  @Delete('/:id')
+  deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.tasksService.deleteTask(id)
+  }
 }

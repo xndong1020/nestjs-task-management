@@ -19,4 +19,14 @@ export class TasksService {
     if (!found) throw new NotFoundException(`Task id ${id} not found`)
     return found
   }
+
+  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    const newTask = await this.taskRepository.createTask(createTaskDto)
+    return newTask
+  }
+
+  async deleteTask(id: number): Promise<void> {
+    const found = await this.getTaskById(id)
+    found.remove()
+  }
 }
