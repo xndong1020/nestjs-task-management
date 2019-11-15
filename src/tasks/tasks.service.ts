@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { TaskStatus } from './task-status.enum'
 import { CreateTaskDto } from './dto/create-task.dto'
 import { UpdateTaskDto } from './dto/update-task.dto'
 import { PatchTaskDto } from './dto/patch-task.dto'
@@ -23,6 +22,16 @@ export class TasksService {
   async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     const newTask = await this.taskRepository.createTask(createTaskDto)
     return newTask
+  }
+
+  async updateTask(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
+    const found = await this.taskRepository.updateTask(id, updateTaskDto)
+    return found
+  }
+
+  async patchTask(id: number, patchTaskDto: PatchTaskDto): Promise<Task> {
+    const found = await this.taskRepository.patchTask(id, patchTaskDto)
+    return found
   }
 
   async deleteTask(id: number): Promise<void> {

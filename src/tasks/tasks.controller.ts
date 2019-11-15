@@ -43,21 +43,21 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto)
   }
 
-  // @Put('/:id')
-  // updateTask(
-  //   @Param('id') id: string,
-  //   @Body(TaskStatusValidation) updateTaskDto: UpdateTaskDto,
-  // ): Task {
-  //   return this.tasksService.updateTask(id, updateTaskDto)
-  // }
+  @Put('/:id')
+  updateTask(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(TaskStatusValidation) updateTaskDto: UpdateTaskDto,
+  ): Promise<Task> {
+    return this.tasksService.updateTask(id, updateTaskDto)
+  }
 
-  // @Patch('/:id')
-  // patchTask(
-  //   @Param('id') id: string,
-  //   @Body(TaskStatusValidation) patchTaskDto: PatchTaskDto,
-  // ): Task {
-  //   return this.tasksService.patchTask(id, patchTaskDto)
-  // }
+  @Patch('/:id')
+  patchTask(
+    @Param('id', ParseIntPipe) id: number,
+    @Body(TaskStatusValidation) patchTaskDto: PatchTaskDto,
+  ): Promise<Task> {
+    return this.tasksService.patchTask(id, patchTaskDto)
+  }
 
   @Delete('/:id')
   deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
