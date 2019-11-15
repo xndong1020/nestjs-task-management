@@ -1,5 +1,5 @@
 import { UpdateTaskDto } from './../tasks/dto/update-task.dto'
-import { TaskStatus } from '../tasks/task.model'
+import { TaskStatus } from '../tasks/task-status.enum'
 import { PatchTaskDto } from '../tasks/dto/patch-task.dto'
 import {
   ArgumentMetadata,
